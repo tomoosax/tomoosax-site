@@ -203,3 +203,8 @@ form.contact textarea { min-height: 140px; }
   .hero-photo img { object-position: center 35%; }
   .split .portrait { max-width: 340px; }
 }
+.split.wide { grid-template-columns: 1fr 1fr; align-items: start; }
+.split.wide .portrait { aspect-ratio: 3 / 2; }
+@media (max-width: 860px) { .split.wide { grid-template-columns: 1fr; } .split.wide .portrait { max-width: none; } }
+.hero-photo.face-top img, .hero-photo.face-top img { object-position: center 12%; }
+@media (max-width: 860px) { .hero-photo.face-top { aspect-ratio: 4 / 5; } .hero-photo.face-top img { object-position: center 10%; } }
