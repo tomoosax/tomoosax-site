@@ -29,7 +29,11 @@
   <div class="wrap">
     <h2>お問い合わせ</h2>
     <p class="sub">演奏のご依頼、レッスン、そのほかのご質問もこちらからどうぞ。2日以内にメールでお返事します。決まっていない項目は空欄で大丈夫です。</p>
-    <form class="contact" action="#" method="POST">
+    <form class="contact" action="https://formsubmit.co/tomoosax@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="【HP】お問い合わせがありました">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" id="next-url" value="">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <div class="row2">
         <label>お名前<input name="name" required></label>
         <label>ふりがな<input name="kana"></label>
@@ -62,6 +66,7 @@
       <label>ご希望や詳細<textarea name="message" placeholder="イベントの内容、演奏してほしい場面、リクエスト曲など"></textarea></label>
       <div><button class="btn" type="submit">送信する</button></div>
     </form>
+    <script>document.getElementById('next-url').value = new URL('thanks.html', location.href).href;</script>
   </div>
 </section>
 

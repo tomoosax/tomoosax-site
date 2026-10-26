@@ -156,3 +156,34 @@ form.contact textarea { min-height: 140px; }
 .site-footer { background: var(--dark); color: #b9b1a3; padding: 40px 0; font-size: 14px; }
 .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; }
 .site-footer a { color: #e8e1d4; text-decoration: none; margin-right: 16px; }
+
+/* 場面カード（写真つき） */
+.scenes { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.scene {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.scene:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(23, 20, 15, 0.12); }
+.scene .photo {
+  position: relative; aspect-ratio: 4 / 3;
+  background-size: cover; background-position: center;
+  display: grid; place-items: center;
+}
+.scene .photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(23,20,15,0) 45%, rgba(23,20,15,0.55) 100%);
+}
+.scene .photo svg { width: 64px; height: 64px; stroke: #f4efe6; opacity: .9; position: relative; z-index: 0; }
+.scene .photo.has-img svg { display: none; }
+.scene .tag {
+  position: absolute; left: 16px; bottom: 12px; z-index: 1;
+  color: #fff; font-size: 12px; letter-spacing: .16em;
+}
+.scene .body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.scene .body p { margin: 0; }
+.scene .body .meta { margin-top: auto; padding-top: 8px; color: var(--accent); font-size: 14px; font-weight: 700; }
+.photo.corp   { background-image: url(img/scene-corporate.jpg), linear-gradient(135deg, #2b2418, #8a6424); }
+.photo.school { background-image: url(img/scene-school.jpg),    linear-gradient(135deg, #1f2b33, #4f7a8a); }
+.photo.wed    { background-image: url(img/scene-wedding.jpg),   linear-gradient(135deg, #3a2430, #b08a8f); }
+.photo.rest   { background-image: url(img/scene-restaurant.jpg),linear-gradient(135deg, #1d2620, #6b7a4a); }
