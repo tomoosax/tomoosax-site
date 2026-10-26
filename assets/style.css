@@ -1,0 +1,158 @@
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --ink: #1e1b16;
+  --muted: #6b645a;
+  --line: #e6e1d8;
+  --accent: #b8862f;
+  --accent-ink: #ffffff;
+  --dark: #17140f;
+  --max: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+img, iframe { max-width: 100%; }
+
+a { color: inherit; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+/* ヘッダー */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(251, 250, 247, 0.95);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; height: 64px;
+}
+.logo {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 700; font-size: 20px; letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.logo small { display: block; font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: 0.12em; line-height: 1; }
+.nav { display: flex; gap: 22px; align-items: center; font-size: 14px; }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--accent); }
+.nav .btn { padding: 8px 16px; font-size: 14px; }
+.nav-toggle { display: none; }
+
+@media (max-width: 760px) {
+  .nav { display: none; position: absolute; top: 64px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 20px 16px; }
+  .nav a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .nav .btn { margin-top: 12px; text-align: center; border-bottom: 0; }
+  .nav.open { display: flex; }
+  .nav-toggle { display: block; background: none; border: 1px solid var(--line);
+    border-radius: 6px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+}
+
+/* ボタン */
+.btn {
+  display: inline-block; text-decoration: none;
+  background: var(--accent); color: var(--accent-ink);
+  padding: 14px 28px; border-radius: 999px; font-weight: 700;
+  border: 0; cursor: pointer; font: inherit; font-weight: 700;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: inherit; border: 1px solid currentColor; }
+
+/* ヒーロー */
+.hero {
+  background: var(--dark); color: #f4efe6;
+  padding: 96px 0 88px;
+}
+.hero .eyebrow { color: var(--accent); font-size: 14px; letter-spacing: 0.16em; margin: 0 0 12px; }
+.hero h1 {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(28px, 5vw, 46px); line-height: 1.45; margin: 0 0 20px;
+}
+.hero p.lead { max-width: 640px; color: #d8d1c4; margin: 0 0 32px; }
+.hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* セクション */
+section { padding: 72px 0; }
+section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+h2 {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(24px, 3.6vw, 32px); line-height: 1.5; margin: 0 0 12px;
+}
+h2 + .sub { color: var(--muted); margin: 0 0 36px; }
+h3 { font-size: 19px; margin: 0 0 8px; }
+
+.grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 24px;
+}
+section.alt .card { background: var(--bg); }
+.card p { margin: 0 0 12px; }
+.card .meta { color: var(--muted); font-size: 14px; margin: 0; }
+
+.highlights { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.highlights li { padding-left: 22px; position: relative; }
+.highlights li::before { content: ""; position: absolute; left: 0; top: 0.75em;
+  width: 10px; height: 2px; background: var(--accent); }
+
+table.price { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; }
+table.price th, table.price td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.price th { width: 55%; font-weight: 500; }
+table.price td { font-weight: 700; }
+.note { color: var(--muted); font-size: 14px; }
+
+.video-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.video { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+ol.steps li { counter-increment: s; padding-left: 52px; position: relative; }
+ol.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center; font-weight: 700;
+}
+
+details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+details summary { cursor: pointer; font-weight: 700; }
+details p { margin: 10px 0 0; color: var(--muted); }
+
+.cta {
+  background: var(--dark); color: #f4efe6; text-align: center;
+}
+.cta p { color: #d8d1c4; }
+
+.todo { background: #fff3cd; color: #6b4e00; padding: 0 4px; border-radius: 3px; }
+
+/* フォーム */
+form.contact { display: grid; gap: 18px; max-width: 680px; }
+form.contact label { display: grid; gap: 6px; font-weight: 700; font-size: 15px; }
+form.contact label span.opt { color: var(--muted); font-weight: 400; font-size: 13px; }
+form.contact input, form.contact select, form.contact textarea {
+  font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); width: 100%;
+}
+form.contact textarea { min-height: 140px; }
+.row2 { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }
+
+/* フッター */
+.site-footer { background: var(--dark); color: #b9b1a3; padding: 40px 0; font-size: 14px; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; }
+.site-footer a { color: #e8e1d4; text-decoration: none; margin-right: 16px; }
