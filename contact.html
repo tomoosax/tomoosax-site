@@ -25,48 +25,171 @@
   </div>
 </header>
 
-<section>
-  <div class="wrap">
+<section class="contact-page">
+  <div class="wrap narrow">
+    <p class="eyebrow-dark">CONTACT</p>
     <h2>お問い合わせ</h2>
-    <p class="sub">演奏のご依頼、レッスン、そのほかのご質問もこちらからどうぞ。2日以内にメールでお返事します。決まっていない項目は空欄で大丈夫です。</p>
-    <form class="contact" action="https://formsubmit.co/tomoosax@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="【HP】お問い合わせがありました">
+    <p class="sub">2日以内にメールでお返事します。決まっていない項目は空欄のままで大丈夫です。</p>
+
+    <form class="contact" id="contact-form" action="https://formsubmit.co/tomoosax@gmail.com" method="POST">
+      <input type="hidden" name="_subject" id="subject" value="【HP】お問い合わせがありました">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" id="next-url" value="">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <div class="row2">
-        <label>お名前<input name="name" required></label>
-        <label>ふりがな<input name="kana"></label>
+
+      <!-- STEP 1 -->
+      <fieldset class="step">
+        <legend><span class="num">1</span>ご用件を選んでください</legend>
+        <div class="choice-grid">
+          <label class="choice">
+            <input type="radio" name="ご用件" value="演奏のご依頼" data-panel="perform" required>
+            <span class="choice-body">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <strong>演奏のご依頼</strong>
+              <small>イベント・学校・結婚式など</small>
+            </span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="ご用件" value="レッスン" data-panel="lesson">
+            <span class="choice-body">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7l10-4 10 4-10 4z"/><path d="M6 9v5c0 1.5 3 3 6 3s6-1.5 6-3V9"/></svg>
+              <strong>サックスレッスン</strong>
+              <small>出張・オンライン</small>
+            </span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="ご用件" value="その他" data-panel="other">
+            <span class="choice-body">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <strong>その他</strong>
+              <small>取材・編曲・ご質問など</small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- STEP 2: 演奏 -->
+      <fieldset class="step panel" data-panel="perform" hidden>
+        <legend><span class="num">2</span>演奏の内容</legend>
+        <div class="field">
+          <span class="label">どんな場面ですか？</span>
+          <div class="chips">
+            <label><input type="radio" name="場面" value="企業のイベント" required><span>企業のイベント</span></label>
+            <label><input type="radio" name="場面" value="学校"><span>学校</span></label>
+            <label><input type="radio" name="場面" value="結婚式・パーティー"><span>結婚式・パーティー</span></label>
+            <label><input type="radio" name="場面" value="施設・レストラン"><span>施設・レストラン</span></label>
+            <label><input type="radio" name="場面" value="その他"><span>その他</span></label>
+          </div>
+        </div>
+        <div class="row2">
+          <label class="field"><span class="label">日付 <em>未定でも可</em></span><input name="日付" placeholder="例：2027年3月中旬"></label>
+          <label class="field"><span class="label">会場 <em>市区町村まで</em></span><input name="会場" placeholder="例：千葉県柏市"></label>
+        </div>
+        <div class="row2">
+          <label class="field"><span class="label">人数の目安</span>
+            <select name="人数">
+              <option value="">選んでください</option>
+              <option>〜30名</option><option>30〜100名</option><option>100〜300名</option><option>300名以上</option><option>未定</option>
+            </select>
+          </label>
+          <label class="field"><span class="label">ご予算</span>
+            <select name="ご予算">
+              <option value="">選んでください</option>
+              <option>〜3万円</option><option>3〜5万円</option><option>5〜10万円</option><option>10万円以上</option><option>相談したい</option>
+            </select>
+          </label>
+        </div>
+        <div class="field">
+          <span class="label">編成のご希望</span>
+          <div class="chips">
+            <label><input type="radio" name="編成" value="サックスソロ"><span>サックスソロ</span></label>
+            <label><input type="radio" name="編成" value="伴奏者つき"><span>ピアノなど伴奏者つき</span></label>
+            <label><input type="radio" name="編成" value="バンド"><span>バンド</span></label>
+            <label><input type="radio" name="編成" value="おまかせ"><span>おまかせ</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- STEP 2: レッスン -->
+      <fieldset class="step panel" data-panel="lesson" hidden>
+        <legend><span class="num">2</span>レッスンについて</legend>
+        <div class="field">
+          <span class="label">受け方</span>
+          <div class="chips">
+            <label><input type="radio" name="レッスン形式" value="出張（ご自宅・スタジオ）" required><span>出張（ご自宅・スタジオ）</span></label>
+            <label><input type="radio" name="レッスン形式" value="オンライン"><span>オンライン</span></label>
+            <label><input type="radio" name="レッスン形式" value="まだ決めていない"><span>まだ決めていない</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <span class="label">サックスの経験</span>
+          <div class="chips">
+            <label><input type="radio" name="経験" value="はじめて"><span>はじめて</span></label>
+            <label><input type="radio" name="経験" value="少し吹ける"><span>少し吹ける</span></label>
+            <label><input type="radio" name="経験" value="経験者・吹奏楽部"><span>経験者・吹奏楽部</span></label>
+          </div>
+        </div>
+        <div class="row2">
+          <label class="field"><span class="label">お住まいの地域</span><input name="地域" placeholder="例：我孫子市"></label>
+          <label class="field"><span class="label">ご希望の曜日・時間帯</span><input name="希望の日時" placeholder="例：平日の夜、土曜の午前"></label>
+        </div>
+      </fieldset>
+
+      <!-- STEP 3 -->
+      <fieldset class="step panel" data-panel="perform lesson other" hidden>
+        <legend><span class="num" data-num>3</span>ご連絡先</legend>
+        <div class="row2">
+          <label class="field"><span class="label">お名前 <b>必須</b></span><input name="お名前" autocomplete="name" required></label>
+          <label class="field"><span class="label">ふりがな</span><input name="ふりがな"></label>
+        </div>
+        <label class="field" data-show="perform other"><span class="label">会社名・学校名</span><input name="会社名・学校名" autocomplete="organization"></label>
+        <div class="row2">
+          <label class="field"><span class="label">メールアドレス <b>必須</b></span><input type="email" name="email" autocomplete="email" required></label>
+          <label class="field"><span class="label">電話番号</span><input type="tel" name="電話番号" autocomplete="tel"></label>
+        </div>
+        <label class="field"><span class="label" id="msg-label">ご希望や詳細</span><textarea name="内容" id="msg"></textarea></label>
+      </fieldset>
+
+      <div class="submit-row" hidden>
+        <button class="btn" type="submit">この内容で送信する</button>
+        <p class="note">送信後、確認のページに切り替わります。</p>
       </div>
-      <label>会社名・学校名 <span class="opt">任意</span><input name="org"></label>
-      <div class="row2">
-        <label>メールアドレス<input type="email" name="email" required></label>
-        <label>電話番号 <span class="opt">任意</span><input type="tel" name="tel"></label>
-      </div>
-      <label>ご用件
-        <select name="type" required>
-          <option value="">選んでください</option>
-          <option>演奏依頼：企業のイベント</option>
-          <option>演奏依頼：学校</option>
-          <option>演奏依頼：結婚式・パーティー</option>
-          <option>演奏依頼：施設・レストラン</option>
-          <option>演奏依頼：その他</option>
-          <option>レッスン</option>
-          <option>その他</option>
-        </select>
-      </label>
-      <div class="row2">
-        <label>日付 <span class="opt">未定でも可</span><input name="date" placeholder="例：2027年3月中旬"></label>
-        <label>会場 <span class="opt">市区町村まで</span><input name="place" placeholder="例：千葉県柏市"></label>
-      </div>
-      <div class="row2">
-        <label>人数の目安 <span class="opt">任意</span><input name="people" placeholder="例：80名"></label>
-        <label>ご予算 <span class="opt">任意</span><input name="budget" placeholder="例：5万円前後"></label>
-      </div>
-      <label>ご希望や詳細<textarea name="message" placeholder="イベントの内容、演奏してほしい場面、リクエスト曲など"></textarea></label>
-      <div><button class="btn" type="submit">送信する</button></div>
     </form>
-    <script>document.getElementById('next-url').value = new URL('thanks.html', location.href).href;</script>
+    <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      document.getElementById('next-url').value = new URL('thanks.html', location.href).href;
+      var placeholders = {
+        perform: 'イベントの流れ、演奏してほしい場面、リクエスト曲、音響や電源のことなど',
+        lesson: '吹いてみたい曲、目標、楽器を持っているかなど',
+        other: 'ご用件をお書きください'
+      };
+      function show(key) {
+        form.querySelectorAll('.panel').forEach(function (p) {
+          var on = p.dataset.panel.split(' ').indexOf(key) >= 0;
+          p.hidden = !on;
+          p.querySelectorAll('input, select, textarea').forEach(function (el) { el.disabled = !on; });
+        });
+        form.querySelectorAll('[data-show]').forEach(function (el) {
+          var on = el.dataset.show.split(' ').indexOf(key) >= 0;
+          el.hidden = !on;
+          el.querySelectorAll('input').forEach(function (i) { i.disabled = !on; });
+        });
+        form.querySelector('[data-num]').textContent = key === 'other' ? '2' : '3';
+        document.getElementById('msg').placeholder = placeholders[key];
+        document.getElementById('msg-label').textContent = key === 'other' ? 'お問い合わせ内容' : 'ご希望や詳細';
+        document.getElementById('subject').value = '【HP】' + ({perform: '演奏のご依頼', lesson: 'レッスンのお問い合わせ', other: 'お問い合わせ'})[key];
+        form.querySelector('.submit-row').hidden = false;
+      }
+      form.querySelectorAll('input[name="ご用件"]').forEach(function (r) {
+        r.addEventListener('change', function () { show(r.dataset.panel); });
+      });
+      form.querySelectorAll('.panel input, .panel select, .panel textarea').forEach(function (el) { el.disabled = true; });
+      var pre = new URLSearchParams(location.search).get('type');
+      var target = pre && form.querySelector('input[data-panel="' + pre + '"]');
+      if (target) { target.checked = true; show(pre); }
+    })();
+    </script>
   </div>
 </section>
 

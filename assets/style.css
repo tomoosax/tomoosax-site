@@ -217,3 +217,66 @@ form.contact textarea { min-height: 140px; }
 .gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 14px 12px;
   color: #fff; font-size: 13px; background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.6)); }
 @media (max-width: 600px) { .gallery { grid-template-columns: 1fr 1fr; } .gallery figure:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; } }
+
+/* お問い合わせ（ステップ式） */
+.contact-page { background: var(--bg); }
+.wrap.narrow { max-width: 760px; }
+.eyebrow-dark { color: var(--accent); font-size: 13px; letter-spacing: .18em; margin: 0 0 6px; }
+form.contact { max-width: none; gap: 28px; }
+form.contact .step {
+  border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
+  padding: 28px 28px 30px; margin: 0; display: grid; gap: 22px;
+  animation: fadeUp .35s ease;
+}
+form.contact .step[hidden] { display: none; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+form.contact legend {
+  float: left; width: 100%; padding: 0; margin: 0 0 4px;
+  display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px;
+}
+form.contact legend + * { clear: both; }
+.num {
+  width: 30px; height: 30px; border-radius: 50%; flex: none;
+  background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 15px;
+}
+.choice-grid { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 640px) { .choice-grid { grid-template-columns: 1fr; } }
+.choice { cursor: pointer; display: block; font-weight: 400 !important; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice-body {
+  display: grid; justify-items: center; text-align: center; gap: 6px;
+  padding: 22px 14px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg);
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.choice-body svg { width: 30px; height: 30px; stroke: var(--accent); }
+.choice-body strong { font-size: 16px; }
+.choice-body small { color: var(--muted); font-size: 13px; }
+.choice:hover .choice-body { border-color: var(--accent); }
+.choice input:checked + .choice-body { border-color: var(--accent); background: #fbf3e4; box-shadow: 0 0 0 3px rgba(184,134,47,.18); }
+.choice input:focus-visible + .choice-body { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .choice-body { grid-template-columns: auto 1fr; justify-items: start; text-align: left; column-gap: 14px; padding: 16px 18px; }
+  .choice-body svg { grid-row: span 2; }
+}
+form.contact .field { display: grid; gap: 8px; font-weight: 400; }
+form.contact .field[hidden] { display: none; }
+form.contact .label { font-weight: 700; font-size: 15px; }
+form.contact .label em { font-style: normal; color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 6px; }
+form.contact .label b { color: #b3412f; font-size: 12px; font-weight: 700; margin-left: 6px; }
+form.contact input, form.contact select, form.contact textarea { background: var(--bg); transition: border-color .15s, box-shadow .15s; }
+form.contact input:focus, form.contact select:focus, form.contact textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(184,134,47,.18); background: #fff; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips label { cursor: pointer; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span {
+  display: inline-block; padding: 9px 16px; border-radius: 999px; font-size: 14px;
+  border: 1.5px solid var(--line); background: var(--bg); transition: all .15s;
+}
+.chips label:hover span { border-color: var(--accent); }
+.chips input:checked + span { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.chips input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.submit-row { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.submit-row[hidden] { display: none; }
+.submit-row .btn { padding: 16px 48px; font-size: 16px; }
+.choice, .chips label { position: relative; }
+form.contact .choice input, form.contact .chips input { width: 1px; height: 1px; padding: 0; border: 0; left: 0; top: 0; }
