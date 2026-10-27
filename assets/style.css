@@ -183,7 +183,7 @@ form.contact textarea { min-height: 140px; }
 .scene .body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .scene .body p { margin: 0; }
 .scene .body .meta { margin-top: auto; padding-top: 8px; color: var(--accent); font-size: 14px; font-weight: 700; }
-.photo.corp   { background-image: url(img/scene-corporate.jpg), linear-gradient(135deg, #2b2418, #8a6424); }
+.photo.corp   { background-image: url(img/scene-dosokai.jpg), linear-gradient(135deg, #2b2418, #8a6424); }
 .photo.school { background-image: url(img/scene-school.jpg),    linear-gradient(135deg, #1f2b33, #4f7a8a); }
 .photo.wed    { background-image: url(img/scene-wedding.jpg),   linear-gradient(135deg, #3a2430, #b08a8f); }
 .photo.rest   { background-image: url(img/scene-restaurant.jpg),linear-gradient(135deg, #1d2620, #6b7a4a); }
