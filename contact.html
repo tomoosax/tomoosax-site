@@ -31,11 +31,12 @@
     <h2>お問い合わせ</h2>
     <p class="sub">2日以内にメールでお返事します。決まっていない項目は空欄のままで大丈夫です。</p>
 
-    <form class="contact" id="contact-form" action="https://formsubmit.co/b62be32153282d6e94d21140fbe1b9b7" method="POST">
-      <input type="hidden" name="_subject" id="subject" value="【HP】お問い合わせがありました">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_next" id="next-url" value="">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <form class="contact" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="23d27b51-87de-41e0-92f3-be9485057de4">
+      <input type="hidden" name="subject" id="subject" value="【HP】お問い合わせがありました">
+      <input type="hidden" name="from_name" value="tomoosax.com お問い合わせ">
+      <input type="hidden" name="redirect" id="next-url" value="">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
       <!-- STEP 1 -->
       <fieldset class="step">
@@ -189,7 +190,7 @@
       var target = pre && form.querySelector('input[data-panel="' + pre + '"]');
       if (target) { target.checked = true; show(pre); }
 
-      // 送信中の表示（送信先の処理に時間がかかることがあるため、連打を防いで待ってもらう）
+      // 送信中の表示（連打を防いで待ってもらう）
       var btn = document.getElementById('submit-btn');
       var note = document.getElementById('submit-note');
       var btnText = btn.textContent, noteText = note.textContent;
@@ -199,7 +200,7 @@
         btn.textContent = '送信中です…';
         btn.style.opacity = '0.6';
         btn.style.cursor = 'wait';
-        note.textContent = '送信に10〜20秒ほどかかることがあります。画面を閉じずにそのままお待ちください。';
+        note.textContent = '送信に数秒かかることがあります。画面を閉じずにそのままお待ちください。';
       });
       // 「戻る」で戻ってきたときはボタンを元に戻す
       window.addEventListener('pageshow', function () {
