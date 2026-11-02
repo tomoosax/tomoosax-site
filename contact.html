@@ -151,8 +151,8 @@
       </fieldset>
 
       <div class="submit-row" hidden>
-        <button class="btn" type="submit">この内容で送信する</button>
-        <p class="note">送信後、確認のページに切り替わります。</p>
+        <button class="btn" type="submit" id="submit-btn">この内容で送信する</button>
+        <p class="note" id="submit-note">送信後、確認のページに切り替わります。</p>
       </div>
     </form>
     <script>
@@ -188,6 +188,27 @@
       var pre = new URLSearchParams(location.search).get('type');
       var target = pre && form.querySelector('input[data-panel="' + pre + '"]');
       if (target) { target.checked = true; show(pre); }
+
+      // 送信中の表示（送信先の処理に時間がかかることがあるため、連打を防いで待ってもらう）
+      var btn = document.getElementById('submit-btn');
+      var note = document.getElementById('submit-note');
+      var btnText = btn.textContent, noteText = note.textContent;
+      form.addEventListener('submit', function (e) {
+        if (btn.disabled) { e.preventDefault(); return; }
+        btn.disabled = true;
+        btn.textContent = '送信中です…';
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'wait';
+        note.textContent = '送信に10〜20秒ほどかかることがあります。画面を閉じずにそのままお待ちください。';
+      });
+      // 「戻る」で戻ってきたときはボタンを元に戻す
+      window.addEventListener('pageshow', function () {
+        btn.disabled = false;
+        btn.textContent = btnText;
+        btn.style.opacity = '';
+        btn.style.cursor = '';
+        note.textContent = noteText;
+      });
     })();
     </script>
   </div>
