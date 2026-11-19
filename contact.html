@@ -7,7 +7,7 @@
 <meta name="description" content="演奏のご依頼、レッスン、ご質問はこちらから。2日以内にお返事します。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261027b">
+<link rel="stylesheet" href="assets/style.css?v=20261119a">
 </head>
 <body>
 
@@ -210,6 +210,88 @@
         btn.style.cursor = '';
         note.textContent = noteText;
       });
+    })();
+
+    // 音声入力（PCのみ。スマホはキーボードのマイクが使えるので出さない）
+    (function () {
+      var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var form = document.getElementById('contact-form');
+      var micSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>';
+      var active = null; // { rec, btn, el }
+
+      function stop() { if (active) { active.rec.stop(); } }
+
+      function start(el, btn, wrap) {
+        var rec = new SR();
+        rec.lang = 'ja-JP';
+        rec.continuous = true;
+        rec.interimResults = true;
+        var start = el.selectionStart != null ? el.selectionStart : el.value.length;
+        var end = el.selectionEnd != null ? el.selectionEnd : el.value.length;
+        var before = el.value.slice(0, start), after = el.value.slice(end);
+        var finalText = '';
+        rec.onresult = function (e) {
+          var interim = '';
+          for (var i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
+            else interim += e.results[i][0].transcript;
+          }
+          el.value = before + finalText + interim + after;
+          var pos = (before + finalText + interim).length;
+          try { el.setSelectionRange(pos, pos); } catch (_) {}
+          if (el.tagName === 'TEXTAREA') el.scrollTop = el.scrollHeight;
+        };
+        rec.onerror = function (e) {
+          var msg = e.error === 'not-allowed' || e.error === 'service-not-allowed'
+            ? 'マイクの使用が許可されていません。ブラウザの設定でマイクを許可してください。'
+            : e.error === 'no-speech' ? '' : '音声を認識できませんでした。もう一度お試しください。';
+          if (msg) hint(wrap, msg);
+        };
+        rec.onend = function () {
+          btn.classList.remove('on');
+          btn.setAttribute('aria-pressed', 'false');
+          btn.title = btn.getAttribute('aria-label');
+          el.value = before + finalText + after;
+          if (active && active.rec === rec) active = null;
+        };
+        try { rec.start(); } catch (_) { return; }
+        active = { rec: rec, btn: btn, el: el };
+        btn.classList.add('on');
+        btn.setAttribute('aria-pressed', 'true');
+        btn.title = 'クリックで音声入力を終了';
+        hint(wrap, '');
+        el.focus();
+      }
+
+      function hint(wrap, msg) {
+        var h = wrap.querySelector('.voice-hint');
+        if (!msg) { if (h) h.remove(); return; }
+        if (!h) { h = document.createElement('span'); h.className = 'voice-hint'; wrap.appendChild(h); }
+        h.textContent = msg;
+      }
+
+      form.querySelectorAll('.field input:not([type]), .field input[type="text"], .field textarea').forEach(function (el) {
+        var wrap = document.createElement('span');
+        wrap.className = 'voice-wrap';
+        el.parentNode.insertBefore(wrap, el);
+        wrap.appendChild(el);
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'voice-btn';
+        btn.setAttribute('aria-label', '音声で入力する');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.title = '音声で入力する';
+        btn.innerHTML = micSvg;
+        wrap.appendChild(btn);
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var same = active && active.btn === btn;
+          stop();
+          if (!same) start(el, btn, wrap);
+        });
+      });
+      form.addEventListener('submit', stop);
     })();
     </script>
   </div>
